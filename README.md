@@ -1,2 +1,2 @@
-# Docker-on-Windows-Server
-Deploying Windows-based containers on Windows Server
+# documentation template
+This repository contains the base templates and configuration for all documentation.  Any production documentation should be forked from this repository.
