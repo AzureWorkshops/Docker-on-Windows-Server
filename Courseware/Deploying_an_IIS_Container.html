@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Deploying an IIS Container - Docker on Windows Server 2016</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="description" content="Azure Workshops" />
+    <meta name="author" content="Joshua Davis">
+    <link rel="icon" href="" type="image/x-icon">
+    
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/azure/css/vs.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme-white.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="">
+
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Azure Workshops</a>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div id="content-wrapper" class="container-fluid">
+    <div class="row hidden-print">
+        <div class="col-md-10 col-md-offset-1 breadcrumbs">
+            <a href="../index.html">Docker on Windows Server 2016</a> / <a href="../Courseware/Exploring_Azure.html">Courseware</a> / <a href="../Courseware/Deploying_an_IIS_Container.html">Deploying an IIS Container</a>        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 hidden-print">
+            <div data-spy="affix" data-offset-top="100">
+                <!-- Navigation -->
+                <ul class='Nav'><li class='Nav__item '><a href="../Overview.html">Overview</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Requirements.html">Requirements</a></li><li class='Nav__item '><a href="../Getting_Started/Azure_Registration.html">Azure Registration</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Courseware</a><ul class='Nav'><li class='Nav__item '><a href="../Courseware/Exploring_Azure.html">Exploring Azure</a></li><li class='Nav__item '><a href="../Courseware/Create_a_Virtual_Machine.html">Create a Virtual Machine</a></li><li class='Nav__item '><a href="../Courseware/Install_Docker.html">Install Docker</a></li><li class='Nav__item '><a href="../Courseware/Nano_Man.html">Nano Man</a></li><li class='Nav__item Nav__item--active'><a href="../Courseware/Deploying_an_IIS_Container.html">Deploying an IIS Container</a></li></ul></li></ul>
+                <div class="Links">
+                    
+                    <div class="pdf-link">
+                        <hr />
+                        <a href="../pdf/Docker on Windows Server 2016.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <span>Download PDF</span></a>
+                    </div>
+
+                                            <hr/>
+                        <div class="Twitter">
+                                                            <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=azureworkshops&amp;show_count=false"></iframe>
+                                <br />
+                                <br />
+                                                    </div>
+                                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <article class="Page">
+    <div class="pageHeader">
+        <h1>Deploying an IIS Container</h1>
+                    <div class="date"> Friday, August 4, 2017 2:26 PM</div>
+            </div>
+    <div class="copy">
+        <h2 id="page_Overview">Overview</h2>
+<p>The final part of this workshop is to expose an IIS container outside of Azure. We're going to create a simple web server and access it from our local machine.</p>
+<h2 id="page_IIS">IIS</h2>
+<p>We are going to deploy a basic container hosting IIS and then expose the sample IIS website outside of Azure.</p>
+<p>From PowerShell, type the following:</p>
+<pre><code class="language-ps">docker run -d -p 80:80 microsoft/iis
+</code></pre>
+<p>This will download and run IIS in the background.  As stated earlier in this workshop, we often run services in <em>detached</em> mode (<code>-d</code>).  As new parameter that you see here is mapping, or publishing (<code>-p</code>), ports  - very similar to a NAT, if you are familiar with the concept. There are two ports specified here separated by a colon.  The first number is the host's port while the second number is the container's port.  So, in essence, we are mapping the host's port 80 to the container's port 80.  If our container runs multiple services or a service requiring multiple ports, we can also specify a port range.</p>
+<ol>
+<li>
+<p>Let's make sure that IIS is running successfully. Open a web browser on the virtual server and try to navigate to <code>http://localhost</code>. Oops. It seems we received an error. What did we do wrong? Let's investigate.</p>
+</li>
+<li>
+<p>If one is not already open, open a PowerShell window and type in <code>docker ps</code>.</p>
+</li>
+<li>
+<p>You should see something like the following:</p>
+</li>
+</ol>
+<pre><code class="language-ps">CONTAINER ID        IMAGE               COMMAND                   CREATED             STATUS              PORTS                NAMES
+c21c24a24027        microsoft/iis       &quot;C:\\ServiceMonitor...&quot;   23 seconds ago      Up 14 seconds       0.0.0.0:80-&gt;80/tcp   kickass_raman
+</code></pre>
+<ol start="4">
+<li>
+<p>Notice the <em>Ports</em> column. Our external port is not mapped to the loopback address (e.g. <code>127.0.0.1</code> or <code>localhost</code>).  Long story short, this is due to a way Windows maps its network interfaces.</p>
+</li>
+<li>
+<p>We need to get the actual, virtual IP address of the container.  To do this, type the following at the PowerShell prompt (change the container id to your container's id):</p>
+</li>
+</ol>
+<pre><code class="language-ps">docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' c21
+</code></pre>
+<ol start="7">
+<li>So, let's use the returned IP instead of the <code>localhost</code> to load our website.  In the browser change the URL to <code>http://&lt;your container's virtual IP address&gt;:8080</code> (e.g. http://192.168.150.195).</li>
+</ol>
+<h2 id="page_Windows-Firewall">Windows Firewall</h2>
+<p>Before we can access the IIS server from outside of Azure, we need to open the port in Windows Firewall.</p>
+<ol>
+<li>
+<p>On the remote server, click the <strong>Start Menu</strong> and begin typing <strong>Firewall</strong>. This should provide a menu option for <strong>Windows Firewall with Advanced Security</strong>. Click on it.</p>
+</li>
+<li>
+<p>Select <strong>Inbound Rules</strong> in the left pane and click <strong>New Rule...</strong> in the right pane.</p>
+</li>
+<li>
+<p>For <strong>Rule Type</strong>, select <strong>Port</strong> and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Protocol and Ports</strong> page, select <strong>TCP</strong>, <strong>Specific local ports</strong>, and enter <strong>80</strong> in the input box. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>For <strong>Action</strong>, choose <strong>Allow the connection</strong> and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>For <strong>Profile</strong>, leave all three profiles checked and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Finally, name the rule <strong>Allow-HTTP</strong> and click <strong>Finish</strong>.</p>
+</li>
+</ol>
+<h2 id="page_Network-Security-Group-NSG">Network Security Group (NSG)</h2>
+<p>Now that our web server is running, let's make it available outside of Azure.</p>
+<p>When we created our Windows virtual machine, we accepted the defaults, including the default settings for our NSG.  The default settings only allowed RDP (port 3389) access. We need to add a rule to our NSG to allow HTTP traffic over port 80.</p>
+<ol>
+<li>
+<p>If you are not still there, go back to the Azure portal and navigate to the settings of your CentOS virtual machine.</p>
+</li>
+<li>
+<p>In the left menu, click on <strong>Network interfaces</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_interfaces.jpg" class="inline"/>.</p>
+</li>
+<li>
+<p>This will open the <em>Network Interfaces</em> blade for your CentOS virtual machine. Click on the singular, listed interface.</p>
+</li>
+<li>
+<p>In the left menu, click on <strong>Network security group</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_security_group.jpg" class="inline"/>.</p>
+</li>
+<li>
+<p>This will list the currently active NSG.  In our case, it should be the NSG that was created with our virtual machine - <strong>docker-centos-nsg</strong>.  Click on the NSG (<strong>NOTE:</strong> Click on the actual NSG link, <strong>NOT</strong> on <strong>Edit</strong>).</p>
+</li>
+<li>
+<p>In the left menu, click on <strong>Inbound security roles</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_inbound_security_rules.jpg" class="inline"/>.</p>
+</li>
+<li>
+<p>At the top of the blade, click <strong>Add</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_add.jpg" class="inline"/>.</p>
+</li>
+<li>
+<p>Enter the following configuration:</p>
+<ul>
+<li>Name: <strong>allow-http</strong>
+</li>
+<li>Priority: <strong>1010</strong>
+</li>
+<li>Source: <strong>Any</strong>
+</li>
+<li>Service: <strong>HTTP</strong>
+</li>
+<li>Action: <strong>Allow</strong>
+</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>OK</strong>.</p>
+</li>
+</ol>
+<p>This should only take a couple of seconds.  Once you see the rule added, open a new browser and navigate to the IP address of your Windows virtual machine, including the port number.  The IP address used in this workshop's screen shots is <strong>40.121.223.152</strong> (your IP address will be different).  Using the aforementioned IP address, I would direct my browser to <strong>http://40.121.223.152/</strong>.  Doing so, you should see the IIS landing page.</p>
+    </div>
+
+            <nav class="hidden-print">
+            <ul class="pager">
+                                    <li class=pager-prev><a href="../Courseware/Nano_Man.html">Previous</a></li>
+                                            </ul>
+        </nav>
+    </article>
+        </div>
+        <div class="col-md-2 hidden-print">
+            <div class="article-links" data-spy="affix" data-offset-top="100">
+                <strong>In this article</strong><ol><li><a href="#page_Overview">Overview</a></li><li><a href="#page_IIS">IIS</a></li><li><a href="#page_Windows-Firewall">Windows Firewall</a></li></ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer" class="container-fluid hidden-print">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+            
+            </div>
+            <div class="col-md-8" style="text-align:right;">
+            This work is licensed under a Creative Commons Attribution 4.0 International License.
+            </div>
+        </div>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JS -->
+    
+    <script src="../themes/azure/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="../themes/azure/js/theme.js"></script>
+
+</body>
+</html>

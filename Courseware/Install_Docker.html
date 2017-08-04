@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Install Docker - Docker on Windows Server 2016</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="description" content="Azure Workshops" />
+    <meta name="author" content="Joshua Davis">
+    <link rel="icon" href="" type="image/x-icon">
+    
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/azure/css/vs.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme-white.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="">
+
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Azure Workshops</a>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div id="content-wrapper" class="container-fluid">
+    <div class="row hidden-print">
+        <div class="col-md-10 col-md-offset-1 breadcrumbs">
+            <a href="../index.html">Docker on Windows Server 2016</a> / <a href="../Courseware/Exploring_Azure.html">Courseware</a> / <a href="../Courseware/Install_Docker.html">Install Docker</a>        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 hidden-print">
+            <div data-spy="affix" data-offset-top="100">
+                <!-- Navigation -->
+                <ul class='Nav'><li class='Nav__item '><a href="../Overview.html">Overview</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Requirements.html">Requirements</a></li><li class='Nav__item '><a href="../Getting_Started/Azure_Registration.html">Azure Registration</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Courseware</a><ul class='Nav'><li class='Nav__item '><a href="../Courseware/Exploring_Azure.html">Exploring Azure</a></li><li class='Nav__item '><a href="../Courseware/Create_a_Virtual_Machine.html">Create a Virtual Machine</a></li><li class='Nav__item Nav__item--active'><a href="../Courseware/Install_Docker.html">Install Docker</a></li><li class='Nav__item '><a href="../Courseware/Nano_Man.html">Nano Man</a></li><li class='Nav__item '><a href="../Courseware/Deploying_an_IIS_Container.html">Deploying an IIS Container</a></li></ul></li></ul>
+                <div class="Links">
+                    
+                    <div class="pdf-link">
+                        <hr />
+                        <a href="../pdf/Docker on Windows Server 2016.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <span>Download PDF</span></a>
+                    </div>
+
+                                            <hr/>
+                        <div class="Twitter">
+                                                            <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=azureworkshops&amp;show_count=false"></iframe>
+                                <br />
+                                <br />
+                                                    </div>
+                                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <article class="Page">
+    <div class="pageHeader">
+        <h1>Install Docker</h1>
+                    <div class="date"> Friday, August 4, 2017 2:26 PM</div>
+            </div>
+    <div class="copy">
+        <h2 id="page_Overview">Overview</h2>
+<p>We have just created our Windows Server 2016 server.  We now need to apply any available system updates along with installing and configuring Docker to begin working with containers.</p>
+<h2 id="page_Install-Updates">Install Updates</h2>
+<p>Just like any other operating system, updates are periodically released to support new features and patch any potential security threats.  We will apply the updates first.</p>
+<ol>
+<li>
+<p>If you have not already, connect to your remote Windows Server 2016 server and login.</p>
+</li>
+<li>
+<p>Open a command prompt as an Administrator, type the following at the command prompt:</p>
+</li>
+</ol>
+<pre><code class="language-shell">sconfig
+</code></pre>
+<ol start="3">
+<li>This will open a screen like the following:</li>
+</ol>
+  <img src="../images/sconfig.jpg" class="block"/>
+<ol start="4">
+<li>
+<p>Choose option <code>6</code>, then <code>A</code> (twice) to download and install all updates.</p>
+</li>
+<li>
+<p>Depending on the number and size of available updates, this process may take a few minutes and could require a reboot.  Now would be a good time to take a break.</p>
+</li>
+</ol>
+<h2 id="page_Install-Docker">Install Docker</h2>
+<p>We now have an updated Windows operating system.  We are ready to install Docker.</p>
+<ol>
+<li>Open a PowerShell prompt as an Administrator and type the following:</li>
+</ol>
+<pre><code class="language-ps">Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-Module -Name DockerMsftProvider -Force
+Install-Package -Name docker -ProviderName DockerMsftProvider -Force
+Restart-Computer -Force
+</code></pre>
+<ol start="2">
+<li>
+<p>This will download the Docker engine and install it as a background service.</p>
+</li>
+<li>
+<p>After you run the above commands, your virtual machine will reboot forcing a disconnect.  Go ahead and reconnect.</p>
+</li>
+</ol>
+<h4 id="page_Ensure-Docker-Engine-is-Running">Ensure Docker Engine is Running</h4>
+<ol>
+<li>Open a PowerShell prompt as an Administrator and type the following:</li>
+</ol>
+<pre><code class="language-ps">docker version
+</code></pre>
+<ol start="2">
+<li>You should see something similar to the following:</li>
+</ol>
+<pre><code class="language-ps">Client:
+ Version:      17.03.1-ee-3
+ API version:  1.27
+ Go version:   go1.7.5
+ Git commit:   3fcee33
+ Built:        Thu Mar 30 19:31:22 2017
+ OS/Arch:      windows/amd64
+
+Server:
+ Version:      17.03.1-ee-3
+ API version:  1.27 (minimum version 1.24)
+ Go version:   go1.7.5
+ Git commit:   3fcee33
+ Built:        Thu Mar 30 19:31:22 2017
+ OS/Arch:      windows/amd64
+ Experimental: false
+</code></pre>
+<ol start="3">
+<li>Because the service is running, we can now use the <code>docker</code> command later in this workshop.</li>
+</ol>
+<p>You've successfully installed the Docker engine.</p>
+    </div>
+
+            <nav class="hidden-print">
+            <ul class="pager">
+                                    <li class=pager-prev><a href="../Courseware/Create_a_Virtual_Machine.html">Previous</a></li>
+                                                    <li class=pager-next><a href="../Courseware/Nano_Man.html">Next</a></li>            </ul>
+        </nav>
+    </article>
+        </div>
+        <div class="col-md-2 hidden-print">
+            <div class="article-links" data-spy="affix" data-offset-top="100">
+                <strong>In this article</strong><ol><li><a href="#page_Overview">Overview</a></li><li><a href="#page_Install-Updates">Install Updates</a></li><li><a href="#page_Install-Docker">Install Docker</a></li></ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer" class="container-fluid hidden-print">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+            
+            </div>
+            <div class="col-md-8" style="text-align:right;">
+            This work is licensed under a Creative Commons Attribution 4.0 International License.
+            </div>
+        </div>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JS -->
+    
+    <script src="../themes/azure/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="../themes/azure/js/theme.js"></script>
+
+</body>
+</html>

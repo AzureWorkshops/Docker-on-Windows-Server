@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Create a Virtual Machine - Docker on Windows Server 2016</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="description" content="Azure Workshops" />
+    <meta name="author" content="Joshua Davis">
+    <link rel="icon" href="" type="image/x-icon">
+    
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/azure/css/vs.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme-white.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="">
+
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Azure Workshops</a>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div id="content-wrapper" class="container-fluid">
+    <div class="row hidden-print">
+        <div class="col-md-10 col-md-offset-1 breadcrumbs">
+            <a href="../index.html">Docker on Windows Server 2016</a> / <a href="../Courseware/Exploring_Azure.html">Courseware</a> / <a href="../Courseware/Create_a_Virtual_Machine.html">Create a Virtual Machine</a>        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 hidden-print">
+            <div data-spy="affix" data-offset-top="100">
+                <!-- Navigation -->
+                <ul class='Nav'><li class='Nav__item '><a href="../Overview.html">Overview</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Requirements.html">Requirements</a></li><li class='Nav__item '><a href="../Getting_Started/Azure_Registration.html">Azure Registration</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Courseware</a><ul class='Nav'><li class='Nav__item '><a href="../Courseware/Exploring_Azure.html">Exploring Azure</a></li><li class='Nav__item Nav__item--active'><a href="../Courseware/Create_a_Virtual_Machine.html">Create a Virtual Machine</a></li><li class='Nav__item '><a href="../Courseware/Install_Docker.html">Install Docker</a></li><li class='Nav__item '><a href="../Courseware/Nano_Man.html">Nano Man</a></li><li class='Nav__item '><a href="../Courseware/Deploying_an_IIS_Container.html">Deploying an IIS Container</a></li></ul></li></ul>
+                <div class="Links">
+                    
+                    <div class="pdf-link">
+                        <hr />
+                        <a href="../pdf/Docker on Windows Server 2016.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <span>Download PDF</span></a>
+                    </div>
+
+                                            <hr/>
+                        <div class="Twitter">
+                                                            <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=azureworkshops&amp;show_count=false"></iframe>
+                                <br />
+                                <br />
+                                                    </div>
+                                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <article class="Page">
+    <div class="pageHeader">
+        <h1>Create a Virtual Machine</h1>
+                    <div class="date"> Friday, August 4, 2017 2:26 PM</div>
+            </div>
+    <div class="copy">
+        <h2 id="page_Objective">Objective</h2>
+<p>Now that we've explored the Azure portal a bit, let's get started with creating some resources.  Our primary resource will be a virtual machine on which we install Docker.  Once we create the virtual machine, we'll see that some additional resources are created for us.</p>
+<h2 id="page_Create-a-Resource-Group">Create a Resource Group</h2>
+<p>As stated on the previous page, in order to create resources, we need a <em>Resource Group</em> to place them in.</p>
+<ol>
+<li>
+<p>If you are not there already, go ahead and click on the <strong>Resource Groups</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_resource_groups.jpg" class="inline"/> in the Azure Portal to open the Resource Groups blade.</p>
+</li>
+<li>
+<p>At the top of the Resource Groups blade, click on <strong>Add</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_add.jpg" class="inline"/>. This will open a panel that asks for some basic configuration settings.</p>
+</li>
+<li>
+<p>Complete the configuration settings with the following:</p>
+<ul>
+<li>Resource group name: <strong>azworkshops_docker_win_demo</strong>
+</li>
+<li>Subscription: <strong><em>&lt;choose your subscription&gt;</em></strong>
+</li>
+<li>Resource group location: <strong><em>&lt;choose your location&gt;</em></strong>
+</li>
+</ul>
+</li>
+<li>
+<p><em>&lt;Optional&gt;</em> Check <em>Pin to dashboard</em> at the bottom of the panel.</p>
+</li>
+<li>
+<p>Click <strong>Create</strong>.</p>
+</li>
+<li>
+<p>It should only take a second for the resource group to be created.  Once you click create, the configuration panel closes and returns you to the list of available resource groups.  Your recently created group may not be visible in the list.  Clicking on <strong>Refresh</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_refresh.jpg" class="inline"/> at the top of the Resource Groups blade should display your new resource group.</p>
+</li>
+</ol>
+<p><strong>NOTE:</strong> When you create a resource group, you are prompted to choose a location. Additionally, as you create individual resources, you will also be prompted to choose locations. The location of resource groups and their resources can be different.  This is because resource groups store <em>metadata</em> describing their contained resources; and, due to some types of compliance that your company may adhere to, you may need to store that metadata in a different location than the resources themselves.  For example, if you are a US-based company, you may choose to keep the metadata state-side while creating resources in foreign regions to reduce latency for the end-user.</p>
+<h2 id="page_Create-a-Virtual-Machine">Create a Virtual Machine</h2>
+<p>Now that we have an available resource group, let's create the actual Windows server.</p>
+<ol>
+<li>
+<p>If you are not there already, go ahead and navigate to the <strong>azworkshops_docker_win_demo</strong> resource group.</p>
+</li>
+<li>
+<p>At the top of the blade for our group, click on <strong>Add</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_add.jpg" class="inline"/>. This will display the blade for the <em>Azure Marketplace</em> allowing you to deploy a number of different solutions.</p>
+</li>
+<li>
+<p>We are interested in deploying a Windows Server 2016 Datacenter server. Therefore, in the <em>Search Everything</em> box, type in <strong>Windows Server 2016</strong>.  This will display a couple of different versions.  Choose <strong>Windows Server 2016 Datacenter</strong>.</p>
+</li>
+</ol>
+  <img src="../images/windows_server.jpg" class="block"/>
+<ol start="4">
+<li>There will be a number of solutions available, including one with containers already enabled.  For the practice, we'll enable containers manually.  Therefore, choose the image as highlighted in the image below.</li>
+</ol>
+  <img src="../images/windows_server2.jpg" class="block"/>
+<ol start="5">
+<li>
+<p>This will display a blade providing more information about the server we have chosen. To continue creating the server, choose <strong>Create</strong>.</p>
+</li>
+<li>
+<p>We are now prompted with some configuration options.  There are 3 sections we need to complete and the last section is a summary of our chosen options.</p>
+<ol>
+<li>
+<p>Basics</p>
+<ul>
+<li>Name: <strong>docker-win</strong>
+</li>
+<li>VM disk type: <strong>SSD</strong>
+</li>
+<li>Username: <strong>localadmin</strong>
+</li>
+<li>Password: <strong>Pass@word1234</strong>
+</li>
+<li>Confirm password: <em>&lt;same as above&gt;</em>
+</li>
+<li>Subscription: <em>&lt;choose your subscription&gt;</em>
+</li>
+<li>Resource group: <strong>Use existing</strong> - <strong>azworkshops_docker_win_demo</strong>
+</li>
+<li>Location: <em>&lt;choose a location&gt;</em>
+</li>
+<li>Already have a Windows Server license? <strong>No</strong>
+</li>
+</ul>
+</li>
+<li>
+<p>Size</p>
+<ul>
+<li>
+<strong>DS1_V2</strong>
+</li>
+</ul>
+</li>
+<li>
+<p>Settings</p>
+<ul>
+<li>
+<p>Use managed disks: <strong>No</strong></p>
+</li>
+<li>
+<p>Storage account: (click on it &amp; <strong>Create New</strong>)</p>
+<ul>
+<li>Name: <strong>dockerwindata</strong><em>&lt;random number&gt;</em>  (ex.  <em>dockerwindata123456</em>)<br />
+(NOTE: This name must be <em>globally</em> unique, so it cannot already be used.)</li>
+<li>Performance: <strong>Premium</strong>
+</li>
+<li>Replication: <strong>Locally-redundant storage (LRS)</strong>
+</li>
+</ul>
+</li>
+<li>
+<p>Virtual network: <em>&lt;accept default&gt;</em> (e.g. <em>(new) azworkshops_docker_win_demo-vnet</em>)</p>
+</li>
+<li>
+<p>Subnet: <em>&lt;accept default&gt;</em> (e.g. <em>default (172.16.1.0/24)</em>)</p>
+</li>
+<li>
+<p>Public IP address: <em>&lt;accept default&gt;</em> (e.g. <em>(new) docker-win-ip</em>)</p>
+</li>
+<li>
+<p>Network security group (firewall): <em>&lt;accept default&gt;</em> (e.g. <em>(new) docker-win-nsg</em>)</p>
+</li>
+<li>
+<p>Extensions: <strong>No extensions</strong></p>
+</li>
+<li>
+<p>Availability set: <strong>None</strong></p>
+</li>
+<li>
+<p>Boot diagnostics: <strong>Enabled</strong></p>
+</li>
+<li>
+<p>Guest OS diagnostics: <strong>Disabled</strong></p>
+</li>
+<li>
+<p>Diagnostics storage account: (click on it &amp; <strong>Create New</strong>)</p>
+<ul>
+<li>Name: <strong>dockerwindiags</strong><em>&lt;random number&gt;</em>  (ex.  <em>dockerwindiags123456</em>)</li>
+<li>Performance: <strong>Standard</strong>
+</li>
+<li>Replication: <strong>Locally-redundant storage (LRS)</strong>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Summary (just click <strong>OK</strong> to continue)</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Once scheduled, it may take a minute or two for the machine to be created by Azure.  Once it has been created, Azure <em>should</em> open the machine's status blade automatically.</p>
+<h2 id="page_Connect-to-the-Virtual-Machine">Connect to the Virtual Machine</h2>
+<p>Once your machine has been created, we can remotely connect to it via a remote desktop protocol (RDP) client.</p>
+<h4 id="page_Get-Public-IP">Get Public IP</h4>
+<ol>
+<li>
+<p>If it is not already open, navigate to the <strong>Overview</strong> blade of your newly created virtual machine.</p>
+</li>
+<li>
+<p>In the top section of the blade, in the right column, you should see a <strong>Public IP address</strong> listed. <img src="../images/ip_address.jpg" class="block"/></p>
+</li>
+<li>
+<p>Copy the IP address.</p>
+</li>
+</ol>
+<h4 id="page_Connect-to-the-Machine-via-Remote-Desktop">Connect to the Machine via Remote Desktop</h4>
+<p>To connect to the machine remotely, we need to download the Remote Desktop Protocol (RDP) profile.</p>
+<ol>
+<li>
+<p>Click on the <strong>Overview</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_overview.jpg" class="inline"/> to return to the general information for the <strong>ad-connect</strong> virtual machine.</p>
+</li>
+<li>
+<p>In the <strong>Actions</strong> section, click on <strong>Connect</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_connect.jpg" class="inline"/>. This will download the RDP profile to your machine.</p>
+</li>
+<li>
+<p>Open the profile and accept any warnings.</p>
+</li>
+<li>
+<p>For the username, enter <strong>\localadmin</strong> (with the backslash). And, for the password, enter <strong>Pass@word1234</strong>. Click <em>OK</em>.</p>
+</li>
+<li>
+<p>Again, accept any warnings.</p>
+</li>
+</ol>
+<p>Congratulations.  You have successfully created and connected to your remote Windows Server 2016 server in Azure.  You are now ready to install the Docker runtime.</p>
+    </div>
+
+            <nav class="hidden-print">
+            <ul class="pager">
+                                    <li class=pager-prev><a href="../Courseware/Exploring_Azure.html">Previous</a></li>
+                                                    <li class=pager-next><a href="../Courseware/Install_Docker.html">Next</a></li>            </ul>
+        </nav>
+    </article>
+        </div>
+        <div class="col-md-2 hidden-print">
+            <div class="article-links" data-spy="affix" data-offset-top="100">
+                <strong>In this article</strong><ol><li><a href="#page_Objective">Objective</a></li><li><a href="#page_Create-a-Resource-Group">Create a Resource Group</a></li><li><a href="#page_Create-a-Virtual-Machine">Create a Virtual Machine</a></li><li><a href="#page_Connect-to-the-Virtual-Machine">Connect to the Virtual Machine</a></li></ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer" class="container-fluid hidden-print">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+            
+            </div>
+            <div class="col-md-8" style="text-align:right;">
+            This work is licensed under a Creative Commons Attribution 4.0 International License.
+            </div>
+        </div>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JS -->
+    
+    <script src="../themes/azure/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="../themes/azure/js/theme.js"></script>
+
+</body>
+</html>

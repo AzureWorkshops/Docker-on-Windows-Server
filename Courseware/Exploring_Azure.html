@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Exploring Azure - Docker on Windows Server 2016</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="description" content="Azure Workshops" />
+    <meta name="author" content="Joshua Davis">
+    <link rel="icon" href="" type="image/x-icon">
+    
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/azure/css/vs.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme.css' rel='stylesheet' type='text/css'><link href='../themes/azure/css/theme-white.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body class="">
+
+        <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Azure Workshops</a>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div id="content-wrapper" class="container-fluid">
+    <div class="row hidden-print">
+        <div class="col-md-10 col-md-offset-1 breadcrumbs">
+            <a href="../index.html">Docker on Windows Server 2016</a> / <a href="../Courseware/Exploring_Azure.html">Courseware</a> / <a href="../Courseware/Exploring_Azure.html">Exploring Azure</a>        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1 hidden-print">
+            <div data-spy="affix" data-offset-top="100">
+                <!-- Navigation -->
+                <ul class='Nav'><li class='Nav__item '><a href="../Overview.html">Overview</a></li><li class='Nav__item  has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Requirements.html">Requirements</a></li><li class='Nav__item '><a href="../Getting_Started/Azure_Registration.html">Azure Registration</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="#" class="aj-nav folder"><i class="Nav__arrow">&nbsp;</i>Courseware</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Courseware/Exploring_Azure.html">Exploring Azure</a></li><li class='Nav__item '><a href="../Courseware/Create_a_Virtual_Machine.html">Create a Virtual Machine</a></li><li class='Nav__item '><a href="../Courseware/Install_Docker.html">Install Docker</a></li><li class='Nav__item '><a href="../Courseware/Nano_Man.html">Nano Man</a></li><li class='Nav__item '><a href="../Courseware/Deploying_an_IIS_Container.html">Deploying an IIS Container</a></li></ul></li></ul>
+                <div class="Links">
+                    
+                    <div class="pdf-link">
+                        <hr />
+                        <a href="../pdf/Docker on Windows Server 2016.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> <span>Download PDF</span></a>
+                    </div>
+
+                                            <hr/>
+                        <div class="Twitter">
+                                                            <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=azureworkshops&amp;show_count=false"></iframe>
+                                <br />
+                                <br />
+                                                    </div>
+                                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <article class="Page">
+    <div class="pageHeader">
+        <h1>Exploring Azure</h1>
+                    <div class="date"> Friday, August 4, 2017 2:26 PM</div>
+            </div>
+    <div class="copy">
+        <h2 id="page_Objective">Objective</h2>
+<p>The first objective is for you to become familiar with connecting to and navigating the Azure portal.  This will not be a difficult exercise, but will nonetheless demonstrate how to work within the Azure user interface.</p>
+<h2 id="page_Azure-Portal-Basics">Azure Portal Basics</h2>
+<p>Let's start by connecting to the Azure portal and becoming familiar with navigation.</p>
+<ol>
+<li>
+<p>Open a browser and navigate to <a href="http://www.azure.com" class="external">http://www.azure.com</a>.</p>
+</li>
+<li>
+<p>In the top-right corner of your screen, you will see the menu option <strong>PORTAL</strong>. Click on it.</p>
+</li>
+<li>
+<p>If you have not already, you will be required to authenticate.</p>
+</li>
+<li>
+<p>After authentication is successful, you will be directed to your <em>Dashboard</em>. The dashboard is configurable by adding, removing and resizing <em>tiles</em>. Additionally, you can have multiple dashboards depending on your preferences. You could have different dashboards for resources dedicated to different functions, lines of business, or for operations.</p>
+</li>
+<li>
+<p>On the left will be your primary navigational menu. You should see a list of favorited services on the menu with descriptions. (NOTE: The number of options listed in your menu may differ from that of others depending on the number of services you have selected as a favorite.) If all you see are icons (no descriptions) on your menu, your menu is currently collapsed. Click the &quot;hamburger&quot; <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_hamburger.jpg" class="inline"/> to expand it.</p>
+</li>
+<li>
+<p>Pretty close to the top of your menu, you should see <strong>Resource Groups</strong> <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_resource_groups.jpg" class="inline"/>. Click this option.</p>
+</li>
+<li>
+<p>Upon clicking the Resource Groups menu item, a <em>blade</em> will open revealing any created resource groups. In order to create resources in Azure, you must assign/place it in a resource group.</p>
+</li>
+</ol>
+<p>This is where we will get started creating our resources.</p>
+<p>While this introduction wasn't too technical, it is sufficient for getting us to a point where we can begin the specifics in the workshop.  If you'd like to look around a bit more, click a few of the other options in the main menu.  Then, when you are ready, can you proceed to the <a href="Create_a_Virtual_Machine.html">next</a> step.</p>
+    </div>
+
+            <nav class="hidden-print">
+            <ul class="pager">
+                                    <li class=pager-prev><a href="../Getting_Started/Azure_Registration.html">Previous</a></li>
+                                                    <li class=pager-next><a href="../Courseware/Create_a_Virtual_Machine.html">Next</a></li>            </ul>
+        </nav>
+    </article>
+        </div>
+        <div class="col-md-2 hidden-print">
+            <div class="article-links" data-spy="affix" data-offset-top="100">
+                <strong>In this article</strong><ol><li><a href="#page_Objective">Objective</a></li><li><a href="#page_Azure-Portal-Basics">Azure Portal Basics</a></li></ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="footer" class="container-fluid hidden-print">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+            
+            </div>
+            <div class="col-md-8" style="text-align:right;">
+            This work is licensed under a Creative Commons Attribution 4.0 International License.
+            </div>
+        </div>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- JS -->
+    
+    <script src="../themes/azure/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="../themes/azure/js/theme.js"></script>
+
+</body>
+</html>
