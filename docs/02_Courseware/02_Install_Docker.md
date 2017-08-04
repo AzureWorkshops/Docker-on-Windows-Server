@@ -11,7 +11,7 @@ Just like any other operating system, updates are periodically released to suppo
   sconfig
   ```
   3. This will open a screen like the following:
-  <img src="../images/sconfig.jpg" style="margin:10px 0px;box-shadow: 2px 2px 2px #999;border:1px solid #ccc;"/>
+  <img src="../images/sconfig.jpg" class="block"/>
 
   4. Choose option `6`, then `A` (twice) to download and install all updates.
  

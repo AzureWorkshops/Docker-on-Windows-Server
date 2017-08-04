@@ -54,17 +54,17 @@ When we created our Windows virtual machine, we accepted the defaults, including
 
   1. If you are not still there, go back to the Azure portal and navigate to the settings of your CentOS virtual machine.
 
-  2. In the left menu, click on **Network interfaces** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_interfaces.jpg" style="display: inline; margin:0px 5px;box-shadow: 2px 2px 2px #999;border:1px solid #ccc;"/>.
+  2. In the left menu, click on **Network interfaces** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_interfaces.jpg" class="inline"/>.
 
   3. This will open the _Network Interfaces_ blade for your CentOS virtual machine. Click on the singular, listed interface.
 
-  4. In the left menu, click on **Network security group** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_security_group.jpg" style="display: inline; margin:0px 5px;box-shadow: 2px 2px 2px #999;border:1px solid #ccc;"/>.
+  4. In the left menu, click on **Network security group** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_network_security_group.jpg" class="inline"/>.
 
   5. This will list the currently active NSG.  In our case, it should be the NSG that was created with our virtual machine - **docker-centos-nsg**.  Click on the NSG (**NOTE:** Click on the actual NSG link, **NOT** on **Edit**).
 
-  6. In the left menu, click on **Inbound security roles** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_inbound_security_rules.jpg" style="display: inline; margin:0px 5px;box-shadow: 2px 2px 2px #999;border:1px solid #ccc;"/>.
+  6. In the left menu, click on **Inbound security roles** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_inbound_security_rules.jpg" class="inline"/>.
 
-  7. At the top of the blade, click **Add** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_add.jpg" style="display: inline; margin:0px 5px;box-shadow: 2px 2px 2px #999;border:1px solid #ccc;"/>.
+  7. At the top of the blade, click **Add** <img src="https://raw.githubusercontent.com/AzureWorkshops/images/master/icons_add.jpg" class="inline"/>.
 
   8. Enter the following configuration:
 
